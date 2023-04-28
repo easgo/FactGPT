@@ -1,6 +1,6 @@
 import re
 
-def Find_Date(x): 
+def Find_Date(text): 
     #x is the string input from CHatGPT
     matches = []
     #I put as many possible formats for dates that I could find 
@@ -16,8 +16,8 @@ def Find_Date(x):
     r'[A-Z]\w+\s\d+']
 
     #in case there's more than one date in the file that needs to be checked
-    for x in dates: 
-        matches.append(re.findall(dates, x))
+    for i in dates: 
+        matches.append(re.findall(i, text))
 
     if matches is not None: 
         return matches 
