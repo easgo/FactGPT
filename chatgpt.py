@@ -6,7 +6,6 @@ import openai
 def getGptText(prompt):
     # Setting up the API endpoint and API key
     url = 'https://api.openai.com/v1/engines/davinci-codex/completions'
-    api_key = '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'
     
     openai.organization = "YOUR_ORG_ID"
     openai.api_key = os.getenv("OPENAI_API_KEY")
