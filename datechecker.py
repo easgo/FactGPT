@@ -9,11 +9,13 @@ def Find_Date(text):
     dates = [r"\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s+(\d{4})\b", 
     r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}\s+\d{4}",
     r"\d{1,2}\/\d{1,2}\/\d{2,4}",
-    r"\d{1,2}\-\d{1,2}\-\d{2,4}",
+    r"\d{1,2}\-\d{1,2}\-\d{2,4}",        
     r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},?\s+\d{4}",
     r"\d{4}\-\d{2}\-\d{2}", 
     r'\d+\S\d+\S\d+', 
-    r'[A-Z]\w+\s\d+']
+    r'[A-Z]\w+\s\d+', 
+    r"\b(\d{4})\b",            
+    r"\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2})(\-\d{0,1}\d{0,1})?,\s+(\d{4})\b"]
 
     #in case there's more than one date in the file that needs to be checked
     for i in dates: 
