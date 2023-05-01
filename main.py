@@ -1,11 +1,8 @@
 #Main file
 import argparse
 import chatgpt
-import processtext
 import wikimedia
 import datechecker
-import nltk
-from nltk.corpus import wordnet
 
 #in command line, take in initial prompt
 def getPrompt():
@@ -29,27 +26,40 @@ user_input = getPrompt()
 #make call to chatgpt using chatgpt.py and get response
 response = chatgpt.getGptText(user_input)
 '^^'
+print(response)
 topictext = chatgpt.getGptText("give a list of up to 3 main wikipedia topics in this text. Only respond with those three or less topics, separated by commas. Only include topics if they are unique and central to the text: " + response)
-topics = topictext[:-1].split(", ")
-
-
+print(topictext)
+topictext.replace("\n", "")
+topics = topictext.split(", ")
+print(topics)
+prompttopic = chatgpt.getGptText("give a list of up to 3 main wikipedia topics in this text. Only respond with those three or less topics, separated by commas. Only include topics if they are unique and central to the text: " + user_input)
+print(prompttopic)
+prompttopic.replace("\n", "")
+ptop = prompttopic.split(", ")
+print(ptop)
 #Identify relevant topics returned as a list of strings
 #topics = processtext.identify_topics(response)
 #make calls to wikimedia.py to get relevant text
 #Iterate through topics, make wikipedia call and save text to list
 wikipedia_pages = [] #will be list of strings, each string is a topic with text to compare to
 for topic in topics:
-   wikitext = wikimedia.search_wikipedia(topic)
-   wikipedia_pages.append(wikitext)
+    wikitext = wikimedia.search_wikipedia(topic)
+    wikipedia_pages.append(wikitext)
     #make calls to wikipedia function
-
+for pto in ptop:
+    wikitext = wikimedia.search_wikipedia(topic)
+    wikipedia_pages.append(wikitext)
 
 #chatgpt workaround
 substitutedtext = response 
+#print(wikipedia_pages)
 for page in wikipedia_pages:
-    substitutedtext = chatgpt.getGptText("Compare these two texts and list ALL the parts in the first text where there is a date that is different than in the second text. The second text is always correct, only the first text can be incorrect. Respond with the first text substituted with the dates from the second text. Only say the substituted text: " + "\"" + substitutedtext + "\" , \"" + page)  
+    #print(page)
+    substitutedtext = chatgpt.getGptText("Compare these two texts and list ALL the parts in the first text where there is a date that is different than in the second text. The second text is always correct, only the first text can be incorrect. Respond with the first text substituted with the dates from the second text. Only say the substituted text: " + "\"" + substitutedtext + "\" , \"" + page[0])  
 
 print(substitutedtext)
+
+
 
 '''
 #go through text from chatgpt and go through text from topic pages and identify parts of the text that match
