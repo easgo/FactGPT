@@ -11,15 +11,15 @@ def search_wikipedia(query):
   try:
     page = returnPageContents(query)
     if page:
-      print("successfully found topic")
+      # print("successfully found topic")
       output.append({"content": page.content,"url": str(page.url)})
       return output
   except:
      pass
 #otherwise search for related search topics
-  print("searching for corresponding wikipage")
+  # print("searching for corresponding wikipage")
   search_results = wikipedia.search(query)
-  print(search_results)
+  # print(search_results)
   for result in search_results:
     page = returnPageContents(result)
     if page:

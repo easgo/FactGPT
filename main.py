@@ -5,7 +5,6 @@ import processtext
 import wikimedia
 import datechecker
 import nltk
-nltk.download('punkt')
 from nltk.corpus import wordnet
 
 #in command line, take in initial prompt
@@ -40,17 +39,25 @@ topics = topictext[:-1].split(", ")
 #Iterate through topics, make wikipedia call and save text to list
 wikipedia_pages = [] #will be list of strings, each string is a topic with text to compare to
 for topic in topics:
-   wikitext = wikimedia.searchTopic(topic)
+   wikitext = wikimedia.search_wikipedia(topic)
    wikipedia_pages.append(wikitext)
     #make calls to wikipedia function
-    
 
+
+#chatgpt workaround
+substitutedtext = response 
+for page in wikipedia_pages:
+    substitutedtext = chatgpt.getGptText("Compare these two texts and list ALL the parts in the first text where there is a date that is different than in the second text. The second text is always correct, only the first text can be incorrect. Respond with the first text substituted with the dates from the second text. Only say the substituted text: " + "\"" + substitutedtext + "\" , \"" + page)  
+
+print(substitutedtext)
+
+'''
 #go through text from chatgpt and go through text from topic pages and identify parts of the text that match
 #"was born on" "happened on" etc
 # Given 2 chunks of text, how to figure out if there's matching text?
 #key: 45 value: ("john was born on feb 5th", "john was born on march 4th")
 #key: index in chatgpt text string where the first character in the chatgpt fact starts 
-#value: maybe a pair: (chatgpt fact, Wikipedia fact) Basically, the line of text from chatgpt, the line of similar text in wikipedia pages'''
+#value: maybe a pair: (chatgpt fact, Wikipedia fact) Basically, the line of text from chatgpt, the line of similar text in wikipedia pages
 def is_similar(sentence1, sentence2):
     # Tokenize the sentences
     tokens1 = nltk.word_tokenize(sentence1)
@@ -76,7 +83,7 @@ def is_similar(sentence1, sentence2):
                         return True
 
     return False
-'''
+
 # Watch out for text that contains periods (like Mr.)
 def find_similar_sentences(response, wikipedia_pages):
     response_sentences = [s.strip() for s in response.split('.') if s.strip()]
@@ -93,12 +100,6 @@ def find_similar_sentences(response, wikipedia_pages):
                     facts_to_check[index] = (response_sentence, wikipedia_sentence)
     return facts_to_check
 
-response = "Wolfgang Amadeus Mozart was a prolific and influential composer of the classical era. He was born in Salzburg in 1756 and began composing at a young age."
-wikipedia_pages = [
-    "Wolfgang Amadeus Mozart (27 January 1756 – 5 December 1791), was a prolific and influential composer of the classical era.",
-    "Mozart showed prodigious ability from his earliest childhood in Salzburg. Born in 1756, he composed his first piece of music at age five.",
-    "Wolfgang Amadeus Mozart was one of the most famous composers of the Classical period. He was born in 1756 in Salzburg, Austria.",
-]
-
 facts_to_check = find_similar_sentences(response, wikipedia_pages)
 print(facts_to_check)
+'''

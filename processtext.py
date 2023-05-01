@@ -1,8 +1,8 @@
 import gensim
 from gensim import corpora
 import nltk
-nltk.download('stopwords')
-nltk.download('averaged_perceptron_tagger')
+# nltk.download('stopwords')
+# nltk.download('averaged_perceptron_tagger')
 from nltk.corpus import stopwords
 from nltk import pos_tag
 from string import punctuation
@@ -53,9 +53,11 @@ def identify_topics(text, num_topics=5):
 
 #test
 
+'''
 words = "hi my name is lisa. I like dogs and pineapples. Today I bought a pineapple at a store. It was delicious. Unfortunately, I am allergic to pineapples. My dog had to take me to the hospital. It was a bad day."
 print(identify_topics(words))
 more_words = "John Bobb the third was born on December 450th in the second year of the galactic empire. In archaic terms, he was born on December 13th, 3600. He grew up in Monrovia District 2. His mother was a poet and his father was a galactic shaper. He had a hard childhood because he lived through the 67 famines that happened that year. This childhood shaped his political decisions later in life. In November of year three (In common terms, November 3666), he graduated from intensification training, and got an administrative position in the government. In November 3766, he was elected as president of his local district. At that point in time, he began to commit controversial acts, such as unbanning apple trees and promoting snake worship. He also disturbed the peace. He signed many laws into action, such as the law requiring inspection for headaches to check for district 8ix fever. His most famous act while in office was when he signed a law favoring trickle down economics. The money never tricked down. Ultimately, John Bobb the third lived a lengthy and eventful life. He died on December 31st, 3701. He left behind 81 children, three dogs, and a legacy that will shape his district for generations. He was truly an important figure in the galactic empire"
 print(identify_topics(more_words))
 prompt = "write an explanation about the life of John Bobb the third"
 print(identify_topics(prompt))
+'''
