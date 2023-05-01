@@ -52,10 +52,11 @@ for pto in ptop:
 
 #chatgpt workaround
 substitutedtext = response 
-#print(wikipedia_pages)
+print(wikipedia_pages)
 for page in wikipedia_pages:
-    #print(page)
-    substitutedtext = chatgpt.getGptText("Compare these two texts and list ALL the parts in the first text where there is a date that is different than in the second text. The second text is always correct, only the first text can be incorrect. Respond with the first text substituted with the dates from the second text. Only say the substituted text: " + "\"" + substitutedtext + "\" , \"" + page[0])  
+    print(page)
+    if page != []:
+        substitutedtext = chatgpt.getGptText("Compare these two texts and list ALL the parts in the first text where there is a date that is different than in the second text. The second text is always correct, only the first text can be incorrect. Respond with the first text substituted with the dates from the second text. Only say the substituted text: " + "\"" + substitutedtext + "\" , \"" + page[0]['content'])  
 
 print(substitutedtext)
 
