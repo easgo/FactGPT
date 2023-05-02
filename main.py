@@ -3,7 +3,7 @@ import argparse
 import chatgpt
 import wikimedia
 import datechecker
-
+from wikimedia import Wikipedia
 #in command line, take in initial prompt
 def getPrompt():
     parser = argparse.ArgumentParser()
@@ -43,8 +43,8 @@ print(ptop)
 #Iterate through topics, make wikipedia call and save text to list
 wikipedia_pages = [] #will be list of strings, each string is a topic with text to compare to
 for topic in topics:
-    wikitext = wikimedia.search_wikipedia(topic)
-    wikipedia_pages.append(wikitext)
+    textArray = Wikimedia(topic).getTextSegs()
+    wikipedia_pages.append(textArray)
     #make calls to wikipedia function
 for pto in ptop:
     wikitext = wikimedia.search_wikipedia(topic)
