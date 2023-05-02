@@ -54,13 +54,20 @@ for pto in ptop:
 substitutedtext = response 
 print("wikipedia done")
 #print(wikipedia_pages)
-#max_page_count = 5
+max_page_count = 5
+page_count = 0
 for page in wikipedia_pages:
-    #print("###########PAGE##########")
+    if page_count <= max_page_count:
+        page_count += 1
+    else:
+        break
+    print("###########processing page##########")
     #print(page)
     if page != []:
-        substitutedtext = chatgpt.getGptText("Compare these two texts and list ALL the parts in the first text where there is a date or location that is different than in the second text. The second text is always correct, only the first text can be incorrect. Respond with the first text substituted with the correct dates and locations from the second text. Only say the substituted text: " + "\"" + substitutedtext + "\" , \"" + page)  
-
+        new = chatgpt.getGptText("Compare these two texts and list ALL the parts in the first text where there is a date or location that is different than in the second text. The second text is always correct, only the first text can be incorrect. Respond with the first text substituted with the correct dates and locations from the second text. Only say the substituted text: " + "\"" + substitutedtext + "\" , \"" + page)  
+        if len(new) - len(substitutedtext) < 100: # and new[0] == substitutedtext[0]:
+            substitutedtext = new
+    print(substitutedtext)
 print(substitutedtext)
 
 
