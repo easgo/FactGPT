@@ -42,21 +42,24 @@ print(ptop)
 #make calls to wikimedia.py to get relevant text
 #Iterate through topics, make wikipedia call and save text to list
 wikipedia_pages = [] #will be list of strings, each string is a topic with text to compare to
-for topic in topics:
-    textArray = wikimedia.Wikipedia(topic).getTextSegs()
-    wikipedia_pages += textArray
+#for topic in topics:
+#    textArray = wikimedia.Wikipedia(topic).getTextSegs()
+#    wikipedia_pages += textArray
     #make calls to wikipedia function
 for pto in ptop:
-    wikitext = wikimedia.Wikipedia(topic).getTextSegs()
+    wikitext = wikimedia.Wikipedia(pto).getTextSegs()
     wikipedia_pages += wikitext
 
 #chatgpt workaround
 substitutedtext = response 
+print("wikipedia done")
 #print(wikipedia_pages)
+#max_page_count = 5
 for page in wikipedia_pages:
+    #print("###########PAGE##########")
     #print(page)
     if page != []:
-        substitutedtext = chatgpt.getGptText("Compare these two texts and list ALL the parts in the first text where there is a date that is different than in the second text. The second text is always correct, only the first text can be incorrect. Respond with the first text substituted with the dates from the second text. Only say the substituted text: " + "\"" + substitutedtext + "\" , \"" + page)  
+        substitutedtext = chatgpt.getGptText("Compare these two texts and list ALL the parts in the first text where there is a date or location that is different than in the second text. The second text is always correct, only the first text can be incorrect. Respond with the first text substituted with the correct dates and locations from the second text. Only say the substituted text: " + "\"" + substitutedtext + "\" , \"" + page)  
 
 print(substitutedtext)
 
