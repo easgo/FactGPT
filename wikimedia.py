@@ -19,9 +19,6 @@ class Wikipedia:
           #first try to search for the page directly
           s = wikipedia.page(str(query))
           if s:
-            self.sources.append(src)
-          self.getPageContents(query)
-          if s:
             # print("successfully found topic")
             src = Source(s.url, s.content)
             self.sources.append(src)
