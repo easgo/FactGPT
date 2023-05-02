@@ -27,14 +27,14 @@ user_input = getPrompt()
 response = chatgpt.getGptText(user_input)
 '^^'
 print(response)
-topictext = chatgpt.getGptText("give a list of up to 3 main wikipedia topics in this text. Only respond with those three or less topics, separated by commas. Only include topics if they are unique and central to the text: " + response)
+topictext = chatgpt.getGptText("give a list of up to 1 main wikipedia topic in this text. Only respond with that one or less topic, separated by commas. Only include topics if they are unique and central to the text: " + response)
 print(topictext)
-topictext.replace("\n", "")
+topictext = topictext.replace("\n", "")
 topics = topictext.split(", ")
 print(topics)
-prompttopic = chatgpt.getGptText("give a list of up to 3 main wikipedia topics in this text. Only respond with those three or less topics, separated by commas. Only include topics if they are unique and central to the text: " + user_input)
+prompttopic = chatgpt.getGptText("give a list of up to 1 main wikipedia topic in this text. Only respond with that one or less topic, separated by commas. Only include topics if they are unique and central to the text: " + user_input)
 print(prompttopic)
-prompttopic.replace("\n", "")
+prompttopic = prompttopic.replace("\n", "")
 ptop = prompttopic.split(", ")
 print(ptop)
 #Identify relevant topics returned as a list of strings
@@ -43,20 +43,20 @@ print(ptop)
 #Iterate through topics, make wikipedia call and save text to list
 wikipedia_pages = [] #will be list of strings, each string is a topic with text to compare to
 for topic in topics:
-    textArray = Wikimedia(topic).getTextSegs()
-    wikipedia_pages.append(textArray)
+    textArray = wikimedia.Wikipedia(topic).getTextSegs()
+    wikipedia_pages += textArray
     #make calls to wikipedia function
 for pto in ptop:
-    wikitext = wikimedia.search_wikipedia(topic)
-    wikipedia_pages.append(wikitext)
+    wikitext = wikimedia.Wikipedia(topic).getTextSegs()
+    wikipedia_pages += wikitext
 
 #chatgpt workaround
 substitutedtext = response 
-print(wikipedia_pages)
+#print(wikipedia_pages)
 for page in wikipedia_pages:
-    print(page)
+    #print(page)
     if page != []:
-        substitutedtext = chatgpt.getGptText("Compare these two texts and list ALL the parts in the first text where there is a date that is different than in the second text. The second text is always correct, only the first text can be incorrect. Respond with the first text substituted with the dates from the second text. Only say the substituted text: " + "\"" + substitutedtext + "\" , \"" + page[0]['content'])  
+        substitutedtext = chatgpt.getGptText("Compare these two texts and list ALL the parts in the first text where there is a date that is different than in the second text. The second text is always correct, only the first text can be incorrect. Respond with the first text substituted with the dates from the second text. Only say the substituted text: " + "\"" + substitutedtext + "\" , \"" + page)  
 
 print(substitutedtext)
 
