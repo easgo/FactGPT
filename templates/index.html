@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FactGPT</title>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </head>
+  <body>
+    <h1>Fact GPT</h1>
+    <p>Type a prompt for chatgpt:</p>
+    <input type="text" id="input">
+    <button onclick="sendMain()">Enter</button>
+    <p id="result"></p>
+  </body>
+</html>
