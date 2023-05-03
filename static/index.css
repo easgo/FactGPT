@@ -1,0 +1,55 @@
+
+body{
+    padding-top: 100px; 
+    text-align: center; 
+    font-family: Roboto, sans-serif; 
+    flex-direction: center; 
+    justify-content: space-between; 
+    width: 100%; 
+}
+h1 {
+   font-size: xx-large; 
+}
+
+.typeaprompt {
+    padding-top: 10px; 
+    padding-bottom: 10px; 
+}
+
+.bottom-section{
+    width: 100%; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+.input-container {
+    width: 100%; 
+    position: relative; 
+}
+
+input {
+    border: none; 
+    background-color: rgba(255, 255, 255, 0.5); 
+    font-size: 20px; 
+    padding: 12px 15px; 
+    border-radius: 5px; 
+    box-shadow: rgb(0, 0, 0, 0.05) 0 54px 55px,
+    rgb(0, 0, 0, 0.05) 0 -12px 30px,  
+    rgb(0, 0, 0, 0.05) 0 4px 6px, 
+    rgb(0, 0, 0, 0.05) 0 12px 13px, 
+    rgb(0, 0, 0, 0.09) 0 -3px 5px; 
+}
+
+input:focus{
+    outline: none; 
+}
+
+button {
+    border: solid 0.5px rgba(255, 255, 255, 0.5); 
+    background-color: transparent; 
+    border-radius: 5px; 
+    padding: 10px; 
+    margin: 10px;
+}
