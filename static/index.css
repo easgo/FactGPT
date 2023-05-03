@@ -73,4 +73,24 @@ input:focus{
 .enterbutton {
     width: 50px; 
     height: 50px; 
+    background-color: transparent; 
+}
+
+nav {
+    color: white; 
+    border-bottom: solid 0.5px rgba(255, 255, 255, 0.5); 
+    padding: 10px; 
+    margin: 10px; 
+}
+
+.newchat{
+    
+}
+
+.history{
+    padding: 10px; 
+    margin: 10px; 
+    display: flex; 
+    flex-direction: column; 
+    height: 100%
 }
