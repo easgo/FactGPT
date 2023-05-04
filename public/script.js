@@ -5,8 +5,9 @@ async function sendMain() {
 
     if (inputValue) {
       // hide the header
-      const headerElement = document.getElementById("header"); 
-      headerElement.style.display = "none"; 
+      const headerElement = document.getElementById("header");
+      console.log(headerElement); 
+      headerElement.style.display = "none !important"; 
     }
     // Make a POST request to our Python function
     fetch('/main', {
