@@ -9,7 +9,7 @@ load_dotenv()
 # Given a prompt, getGptText returns ChatGPT response
 def getGptText(prompt):
     openai.api_key = os.getenv("OPENAI_API_KEY")
-
+    
     response = openai.Completion.create(
         model="text-davinci-003",
         prompt=prompt,

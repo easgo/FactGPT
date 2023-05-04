@@ -26,15 +26,13 @@ def getPrompt():
         print('You entered:', user_input)
     return user_input
 
+
 @app.route('/main', methods=['POST'])
 def main():
     user_input = request.json['input']
-    
-
 #main code (maybe put in a main function?)
 #prompt user to enter question (for now let's do this with command line)
 #****** user_input = getPrompt()
-
     #make call to chatgpt using chatgpt.py and get response
     response = chatgpt.getGptText(user_input)
     print(response)
