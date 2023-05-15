@@ -2,7 +2,6 @@
 import argparse
 import chatgpt
 import wikimedia
-import datechecker
 from wikimedia import Wikipedia
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
@@ -13,6 +12,8 @@ CORS(app)
 def index():
     return render_template('index.html')
 #in command line, take in initial prompt
+
+
 def getPrompt():
     parser = argparse.ArgumentParser()
     parser.add_argument('-o', '--output', help='output file')
