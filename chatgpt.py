@@ -10,13 +10,15 @@ load_dotenv()
 def getGptText(prompt):
     openai.api_key = os.getenv("OPENAI_API_KEY")
     
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=prompt,
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": prompt}
+        ],
         max_tokens=50,
         temperature=0
     )
 
     # Print the generated text from the response
-    generated_text = response['choices'][0]['text']
+    generated_text = response['choices'][0]['message']['content']
     return(generated_text)
