@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
     `;
   }
+  console.log('hi'); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -30,7 +30,7 @@ def getPrompt():
 
 @app.route('/main', methods=['POST'])
 def main():
-    user_input = request.json['input']
+    user_input = request.json['prompt']
 #main code (maybe put in a main function?)
 #prompt user to enter question (for now let's do this with command line)
 #****** user_input = getPrompt()
