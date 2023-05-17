@@ -7,24 +7,16 @@
     <link rel = "stylesheet" href="{{ url_for('static', filename='index.css') }}">
   </head>
   <body>
-    <section class = "sidebar">
-      <div class = "history"></div>
-      <nav>
-        <p class = "newchat">New Chat</p>
-      </nav>
-    </section>
-    <section class = "main">
-      <h1 id = "header">FactGPT</h1>
-      <p id = "chatoutput"> </p>
-      <p id = "result"> </p>
-      <div class = "searchsection">
-        <div class = "input-container">
-          <input type = "text" id = "input"> </input>
-          <button class = "enterbutton" onclick = sendMain()> ➢ </button> 
-        </div>
-      </div>
-    </section>
+    <div id="app">
+      <div id="chat_container"></div>
+
+      <form>
+        
+        <textarea name="prompt" rows="1" cols="1" placeholder="Write a message..."></textarea>
+        <button type="submit">➢</button>
+
+      </form>
+    </div>
     
-    <!-- <p id="result"></p>  -->
   </body>
 </html>
