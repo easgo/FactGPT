@@ -35,11 +35,14 @@ def scrape_website(url):
     text_content = re.sub(r'\s+', ' ', text_content).strip()
 
     return text_content
-def print_snips(q):
+
+def get_snips(q):
     res = google_search(q, my_api_key, my_cse_id, num=2)
+    output = []
     for result in res:
         print(result['snippet'] + "\n")
-
+        output.append(result['snippet'])
+    return output
 
 
 '''TEST CODE'''

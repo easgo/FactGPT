@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
     `;
   }
-  console.log('hi'); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(data => {
         console.log(data)
         messageDiv.innerHTML = " "
-        typeText(messageDiv, data.result)
+        typeText(messageDiv, data.gpt_response)
       })
 
     
@@ -114,7 +113,7 @@ async function sendMain() {
     fetch('/main', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       
       body: JSON.stringify({input: inputValue})
@@ -128,8 +127,11 @@ async function sendMain() {
 
       const resultElement = document.getElementById("result");
       console.log(data.result);
+      const gpt_response = data.gpt_response
+      // chatoutput.innerHTML = printTextAnimated(gpt_response);
+      
       const animatedText = printTextAnimated(`The fact checked response to ${inputValue} is ${data.result}.`).then(animatedText => {
-        resultElement.innerHTML = animatedText;
+        resultElement.innerHTML = data.gpt_response;
       });
       //resultElement.innerHTML = printTextAnimated("`The fact checked response to ${inputValue} is ${data.result}.`");
     })

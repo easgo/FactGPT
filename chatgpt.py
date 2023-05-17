@@ -15,7 +15,6 @@ def getGptText(prompt):
         messages=[
             {"role": "user", "content": prompt}
         ],
-        max_tokens=50,
         temperature=0
     )
 

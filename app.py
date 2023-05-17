@@ -5,6 +5,7 @@ import wikimedia
 from wikimedia import Wikipedia
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
+from goo import *
 app = Flask(__name__, static_folder='public')
 CORS(app)
 
@@ -31,55 +32,32 @@ def getPrompt():
 @app.route('/main', methods=['POST'])
 def main():
     user_input = request.json['prompt']
-#main code (maybe put in a main function?)
-#prompt user to enter question (for now let's do this with command line)
-#****** user_input = getPrompt()
+
     #make call to chatgpt using chatgpt.py and get response
     response = chatgpt.getGptText(user_input)
     print(response)
-    topictext = chatgpt.getGptText("give a list of up to 1 main wikipedia topic in this text. Only respond with that one or less topic, separated by commas. Only include topics if they are unique and central to the text: " + response)
-    print(topictext)
-    topictext = topictext.replace("\n", "")
-    topics = topictext.split(", ")
-    print(topics)
-    prompttopic = chatgpt.getGptText("give a list of up to 1 main wikipedia topic in this text. Only respond with that one or less topic, separated by commas. Only include topics if they are unique and central to the text: " + user_input)
-    print(prompttopic)
-    prompttopic = prompttopic.replace("\n", "")
-    ptop = prompttopic.split(", ")
-    print(ptop)
-    #Identify relevant topics returned as a list of strings
-    #topics = processtext.identify_topics(response)
-    #make calls to wikimedia.py to get relevant text
-    #Iterate through topics, make wikipedia call and save text to list
-    wikipedia_pages = [] #will be list of strings, each string is a topic with text to compare to
-    #for topic in topics:
-    #    textArray = wikimedia.Wikipedia(topic).getTextSegs()
-    #    wikipedia_pages += textArray
-        #make calls to wikipedia function
-    for pto in ptop:
-        wikitext = wikimedia.Wikipedia(pto).getTextSegs()
-        wikipedia_pages += wikitext
+    queries = chatgpt.getGptText("reformat as a list of context independent searchable questions for verification of the validity of all facts stated. No nonidentificable pronouns. Here is the response: " + response)
+    print(queries)
+    queries = queries.split("\n")
+    print(queries)
+    output = ""
+    arr = []
+    for question in queries:
+        print("###########processing question##########")
+        print("query: " + question)
+        if len(question) > 1:
+            snips = get_snips(question)
+            print(type(snips))
+            question = {"q": question , "snips": snips}
+            arr.append(question)
 
-    #chatgpt workaround
-    substitutedtext = response 
-    print("wikipedia done")
-    #print(wikipedia_pages)
-    max_page_count = 5
-    page_count = 0
-    for page in wikipedia_pages:
-        if page_count <= max_page_count:
-            page_count += 1
-        else:
-            break
-        print("###########processing page##########")
-        #print(page)
-        if page != []:
-            new = chatgpt.getGptText("Compare these two texts and list ALL the parts in the first text where there is a date or location that is different than in the second text. The second text is always correct, only the first text can be incorrect. Respond with the first text substituted with the correct dates and locations from the second text. Only say the substituted text: " + "\"" + substitutedtext + "\" , \"" + page)  
-            if len(new) - len(substitutedtext) < 100: # and new[0] == substitutedtext[0]:
-                substitutedtext = new
-        print(substitutedtext)
-    print(substitutedtext)
-    return jsonify({"result": substitutedtext})
+    #identify sources  
+    # 
+    # arr = [{"q": question, "snips": ["string", "string", "string"]}, {"q": question, "snips": ["string", "string", "string"]]
+
+#arr = [ obj1, obj2]
+ # obj = {"q": question, "snips": {"src": url, "text": text, "other meta info mb similarity" : }}}] 
+    return jsonify({"gpt_response": response , "arr:" : arr})
 
 
 if __name__ == '__main__':
