@@ -3,6 +3,9 @@ from spacy.lang.en.stop_words import STOP_WORDS
 
 nlp = spacy.load("en_core_web_lg")
 
+### TODO: Consider doing pronoun replacement with the prompt instead of
+### complete removal?
+
 # Functions for preprocessing
 def process_text(text):
     doc = nlp(text.lower())
