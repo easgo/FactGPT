@@ -34,7 +34,7 @@ def main():
     user_input = request.json['prompt']
 
     #make call to chatgpt using chatgpt.py and get response
-    response = chatgpt.getGptText(user_input)
+    response = chatgpt.getGptText(user_input) + "\n\n"
     print(response)
     queries = chatgpt.getGptText("reformat as a list of context independent searchable questions for verification of the validity of important facts stated. Keep the questions precise as possible to make it easier for google to pull up a result. Try not to give more than 5 questions. No nonidentificable pronouns. Here is the response: " + response)
     print(queries)
