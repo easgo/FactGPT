@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // dataElement.innerHTML = `The ChatGPT response to ${inputValue} is ${}`
   
         const resultElement = document.getElementById("result");
-        console.log(data.result);
+        console.log(data);
         const animatedText = printTextAnimated(`The fact checked response to ${inputValue} is ${data.result}.`).then(animatedText => {
           resultElement.innerHTML = animatedText;
         });

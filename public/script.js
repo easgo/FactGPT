@@ -54,6 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
     chatContainer.scrollTop = chatContainer.scrollHeight;
 
     const messageDiv = document.getElementById(uniqueId);
+    //Second evidence chatstripe 
+
 
     //const inputValue = document.getElementById("input").value;
 
@@ -70,7 +72,18 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(data => {
         console.log(data)
         messageDiv.innerHTML = " "
-        typeText(messageDiv, data.gpt_response)
+        evidence = ""
+        for (item in data.arr) {
+          evidence += "########Question########\n"
+          evidence += data.arr[item].q + "\n" + data.arr[item].snips + "\n"
+        }
+        // typeText(messageDiv, data.gpt_response + "\n")
+        messageDiv.innerHTML = data.gpt_response + evidence
+        // const secId = generateUniqueID();
+        // chatContainer.innerHTML += chatStripe(true, " ", secId);
+        // evDiv = document.getElementById(secId);
+        // console.log(data.arr)
+        // typeText(evDiv,JSON.stringify(data.arr));
       })
 
     

@@ -36,7 +36,7 @@ def main():
     #make call to chatgpt using chatgpt.py and get response
     response = chatgpt.getGptText(user_input)
     print(response)
-    queries = chatgpt.getGptText("reformat as a list of context independent searchable questions for verification of the validity of all facts stated. No nonidentificable pronouns. Here is the response: " + response)
+    queries = chatgpt.getGptText("reformat as a list of context independent searchable questions for verification of the validity of important facts stated. Keep the questions precise as possible to make it easier for google to pull up a result. Try not to give more than 5 questions. No nonidentificable pronouns. Here is the response: " + response)
     print(queries)
     queries = queries.split("\n")
     print(queries)
@@ -57,7 +57,7 @@ def main():
 
 #arr = [ obj1, obj2]
  # obj = {"q": question, "snips": {"src": url, "text": text, "other meta info mb similarity" : }}}] 
-    return jsonify({"gpt_response": response , "arr:" : arr})
+    return jsonify({"gpt_response": response , "arr" : arr})
 
 
 if __name__ == '__main__':
