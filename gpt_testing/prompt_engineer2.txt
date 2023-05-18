@@ -1,0 +1,35 @@
+The OS stands for Operating System. It is a software that manages computer hardware and software resources and provides common services for computer programs. Examples of popular operating systems include Windows, macOS, Linux, and Android.1. What does OS stand for?
+2. What is the function of an operating system?
+3. What are some examples of popular operating systems?
+4. How does an operating system manage computer hardware and software resources?
+5. What common services does an operating system provide for computer programs?The NBA (National Basketball Association) is a professional basketball league in North America. It consists of 30 teams, divided into two conferences (Eastern and Western) and six divisions. 
+
+The regular season runs from October to April, with each team playing 82 games. The top eight teams from each conference qualify for the playoffs, which are held from April to June. 
+
+The playoffs are a best-of-seven series, with the winner of each series advancing to the next round until the conference champions are determined. The two conference champions then face off in the NBA Finals, also a best-of-seven series, to determine the league champion. 
+
+During the offseason, teams can make trades, sign free agents, and participate in the NBA Draft to acquire new players. The NBA also has a salary cap, which limits how much teams can spend on player salaries. 
+
+Overall, the NBA is a highly competitive and popular league, with millions of fans around the world following their favorite teams and players.1. What is the NBA?
+2. How many teams are in the NBA?
+3. What is the regular season schedule for the NBA?
+4. How do teams qualify for the playoffs in the NBA?
+5. What is the NBA Draft and how do teams participate?A binary tree is a tree data structure in which each node has at most two children, referred to as the left child and the right child. The topmost node of the tree is called the root node. Each node in a binary tree can have zero, one, or two children. If a node has no children, it is called a leaf node. 
+
+Binary trees are commonly used in computer science for various applications such as searching, sorting, and indexing. They are also used in data compression algorithms, database indexing, and in the implementation of various data structures such as heaps and binary search trees.
+
+Binary trees can be classified into different types based on their structure, such as full binary trees, complete binary trees, balanced binary trees, and degenerate (or pathological) binary trees. The performance of operations on a binary tree depends on its structure, and different types of binary trees have different performance characteristics.1. What is a binary tree?
+2. What are the children of each node in a binary tree called?
+3. What is the root node of a binary tree?
+4. What are some common applications of binary trees in computer science?
+5. How can binary trees be classified based on their structure?a linguist and educational researcher known for his theories on second language acquisition and language education. He is a professor emeritus at the University of Southern California and has authored numerous books and articles on language acquisition, including "The Input Hypothesis" and "Principles and Practice in Second Language Acquisition." Krashen's work has had a significant impact on language education and has been influential in shaping language teaching methods and approaches.1. Who is the linguist and educational researcher known for his theories on second language acquisition and language education?
+2. What is the name of the book authored by the linguist on language acquisition?
+3. What is the name of the book authored by the linguist on principles and practice in second language acquisition?
+4. What impact has the linguist's work had on language education?
+5. How has the linguist's work influenced language teaching methods and approaches?As an AI language model, I don't have personal beliefs or attitudes, but I can provide you with the definition of Murphy's law of love. 
+
+Murphy's law of love is a humorous take on the famous Murphy's law, which states that "anything that can go wrong will go wrong." In the context of love, Murphy's law of love suggests that if something can go wrong in a relationship, it probably will. It's a tongue-in-cheek way of acknowledging that love can be unpredictable and messy, but also rewarding and fulfilling.1. What is Murphy's law of love?
+2. What is the definition of Murphy's law?
+3. How is Murphy's law applied to love?
+4. What does Murphy's law of love suggest about relationships?
+5. What is the tone of Murphy's law of love?

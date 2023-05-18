@@ -1,0 +1,50 @@
+The OS stands for Operating System. It is a software that manages computer hardware and software resources and provides common services for computer programs. Examples of popular operating systems include Windows, macOS, Linux, and Android.1. What does OS stand for?
+2. What is the function of an operating system?
+3. Can you provide examples of popular operating systems?
+4. What is the role of an operating system in managing computer hardware and software resources?
+5. How does an operating system provide common services for computer programs?The NBA (National Basketball Association) is a professional basketball league in North America. It consists of 30 teams, divided into two conferences (Eastern and Western) and six divisions. 
+
+The regular season runs from October to April, with each team playing 82 games. The top eight teams from each conference qualify for the playoffs, which are held from April to June. 
+
+The playoffs are a best-of-seven series, with the winner of each series advancing to the next round until the conference champions are determined. The two conference champions then face off in the NBA Finals, also a best-of-seven series, to determine the league champion. 
+
+During the offseason, teams can make trades, sign free agents, and participate in the NBA Draft to acquire new players. The NBA also has a salary cap, which limits how much teams can spend on player salaries. 
+
+Overall, the NBA is a highly competitive and popular league, with millions of fans around the world following their favorite teams and players.1. How many teams are in the NBA?
+2. How are the teams divided?
+3. When does the regular season start and end?
+4. How many games does each team play during the regular season?
+5. How many teams from each conference qualify for the playoffs?
+6. When are the playoffs held?
+7. What is the format of the playoffs?
+8. How is the league champion determined?
+9. What can teams do during the offseason?
+10. What is the NBA salary cap?
+11. How popular is the NBA?A binary tree is a tree data structure in which each node has at most two children, referred to as the left child and the right child. The topmost node of the tree is called the root node. Each node in a binary tree can have zero, one, or two children. If a node has no children, it is called a leaf node. 
+
+Binary trees are commonly used in computer science for various applications such as searching, sorting, and indexing. They are also used in data compression algorithms, database indexing, and in the implementation of various data structures such as heaps and binary search trees.
+
+Binary trees can be classified into different types based on their structure, such as full binary trees, complete binary trees, balanced binary trees, and degenerate (or pathological) binary trees. The performance of operations on a binary tree depends on its structure, and different types of binary trees have different performance characteristics.1. What is a binary tree?
+2. How many children can a node have in a binary tree?
+3. What is the topmost node in a binary tree called?
+4. What is a leaf node in a binary tree?
+5. What are some common applications of binary trees in computer science?
+6. What are some types of binary trees based on their structure?
+7. How does the performance of operations on a binary tree depend on its structure?
+8. What are some data structures that can be implemented using binary trees?a linguist and educational researcher known for his theories on second language acquisition and language education. He is a professor emeritus at the University of Southern California and has authored numerous books and articles on language acquisition, including "The Input Hypothesis" and "Principles and Practice in Second Language Acquisition." Krashen's work has had a significant impact on language education and has been influential in shaping language teaching methods and approaches.1. Who is Stephen Krashen?
+2. What is Stephen Krashen known for?
+3. Where is Stephen Krashen a professor emeritus?
+4. What are some of the books and articles Stephen Krashen has authored?
+5. How has Stephen Krashen's work impacted language education?
+6. What teaching methods and approaches has Stephen Krashen influenced?As an AI language model, I don't have personal beliefs or attitudes, but I can provide you with the definition of Murphy's law of love. 
+
+Murphy's law of love is a humorous take on the famous Murphy's law, which states that "anything that can go wrong will go wrong." In the context of love, Murphy's law of love suggests that if something can go wrong in a relationship, it probably will. It's a tongue-in-cheek way of acknowledging that love can be unpredictable and messy, but also rewarding and fulfilling.1. What is Murphy's law of love?
+2. What is the original Murphy's law?
+3. How is Murphy's law of love different from the original Murphy's law?
+4. What does Murphy's law of love suggest about relationships?
+5. Is Murphy's law of love a serious concept or a humorous one?
+6. How does Murphy's law of love acknowledge the unpredictability of love?
+7. Is love always rewarding and fulfilling according to Murphy's law of love?
+8. Can love be messy according to Murphy's law of love?
+9. Is Murphy's law of love a widely accepted concept?
+10. How does Murphy's law of love relate to the concept of fate or destiny in relationships?

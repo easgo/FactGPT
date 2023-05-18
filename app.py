@@ -43,8 +43,7 @@ def main():
     output = ""
     arr = []
     for question in queries:
-        print("###########processing question##########")
-        print("query: " + question)
+        print("###########" +question +  "##########")
         if len(question) > 1:
             snips = get_snips(question)
             print(type(snips))
