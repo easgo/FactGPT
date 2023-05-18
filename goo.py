@@ -42,8 +42,8 @@ def get_snips(q):
     res = google_search(q, my_api_key, my_cse_id, num=1)
     output = []
     for result in res:
-        print(result['snippet'] + "\n")
-        output.append(result['snippet'])
+        print(result['snippet'] + "\n" + "Source link:" + result["link"])
+        output.append(result['snippet'] + "\n\n" + "Source Link: " + result["link"])
     return output
 
 

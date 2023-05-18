@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
         evidence = ""
         for (item in data.arr) {
           evidence += "########Question########\n"
-          evidence += data.arr[item].q + "\n" + data.arr[item].snips + "\n\n"
+          evidence += data.arr[item].q + "\n" + data.arr[item].snips + "\n\n\n"
         }
         // typeText(messageDiv, data.gpt_response + "\n")
         messageDiv.innerHTML = data.gpt_response + evidence
