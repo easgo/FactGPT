@@ -17,9 +17,14 @@ pp = pprint.PrettyPrinter(indent=2)
 def google_search(search_term, api_key, cse_id, **kwargs):
     #remove quotes and anything that would mess up the search query
     search_term = re.sub(r'[^a-zA-Z0-9\s\-:]', '', search_term)
+    kwargs['siteSearch'] = 'wikipedia.org'
     service = build("customsearch", "v1", developerKey=api_key)
     res = service.cse().list(q=search_term, cx=cse_id, **kwargs).execute()
-    return res['items']
+    return res['items']    
+
+def google_search_wrapper(q, num):
+    res = google_search(q, my_api_key, my_cse_id, num=num)
+    return res
 
 #scrape generc website 
 def scrape_website(url):
@@ -31,11 +36,10 @@ def scrape_website(url):
     text_content = soup.get_text()
 
     # Remove non-alphanumeric characters except spaces and dashes
-    text_content = re.sub(r'[^a-zA-Z0-9\s\-:]', '', text_content)
+    text_content = re.sub(r'[^a-zA-Z0-9\s\-.:]', '', text_content)
 
     # Remove extra spaces and newlines
     text_content = re.sub(r'\s+', ' ', text_content).strip()
-
     return text_content
 
 def get_snips(q):

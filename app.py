@@ -1,7 +1,10 @@
 #Main file
 import argparse
 import chatgpt
+import openai
+import time
 import wikimedia
+import facts
 from wikimedia import Wikipedia
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
@@ -34,21 +37,76 @@ def main():
     user_input = request.json['prompt']
 
     #make call to chatgpt using chatgpt.py and get response
-    response = "########ChatGPT Output########\n" + chatgpt.getGptText(user_input) + "\n\n"
+    response_raw = chatgpt.getGptText(user_input)
+    response = "########ChatGPT Output########\n" + response_raw + "\n\n"
     print(response)
-    queries = chatgpt.getGptText("reformat as a list of context independent searchable questions for verification of the validity of important facts stated. Keep the questions precise as possible to make it easier for google to pull up a result. Try not to give more than 5 questions. No nonidentificable pronouns. Here is the response: " + response)
-    print(queries)
-    queries = queries.split("\n")
-    print(queries)
+    #queries = chatgpt.getGptText("reformat as a list of context independent searchable questions for verification of the validity of important facts stated. Keep the questions precise as possible to make it easier for google to pull up a result. Try not to give more than 2 questions. No nonidentificable pronouns. Here is the response: " + response)
+    #print(queries)
+    #queries = queries.split("\n")
+    #print(queries)
     output = ""
     arr = []
-    for question in queries:
+    #for question in queries:
+    #    if len(question) > 1:
+    res = google_search_wrapper(user_input, 1)
+            #askchat = "which of these links seems like it would be the best link to look at when trying to answer this question: " + str(question) + " please only respond with the one link: "
+            #for results in res:
+            #    askchat += ", " + str(results['link'])
+            #    link = results['link']
+            
+           # try:
+            #    finallink = chatgpt.getGptText(askchat)
+           # except openai.error.RateLimitError as e:
+           #     time.sleep(60)
+           #    finallink = chatgpt.getGptText(askchat) 
+    for results in res:
+        link = results['link']
+    text = scrape_website(link)
+
+    print("###########" +user_input +  "##########")
+    print(link)
+    print(text)
+    #text = wikimedia.clean_string(text)
+    #cut off useless stuff:
+    search_phrase = "From Wikipedia the free encyclopedia"
+    index = text.find(search_phrase)
+    if index != -1:
+        text = text[index + len(search_phrase):].strip()
+    
+    end_p = "Selected worksedit"
+    ind_two = text.find(end_p)
+    if ind_two != -1:
+        text = text[0:ind_two].strip()
+
+    outp = []
+    for result in res:
+    #    print(result['snippet'] + "\n" + "Source link:" + result["link"])
+        outp.append(result['snippet'] + "\n\n" + "Source Link: " + result["link"])
+
+        #set snips : outp to see snips or snips:text to see full page text
+        question = {"q": user_input, "snips": text}
+        arr.append(question)
+        
+        
+
+        '''
         print("###########" +question +  "##########")
         if len(question) > 1:
             snips = get_snips(question)
             print(type(snips))
             question = {"q": question , "snips": snips}
             arr.append(question)
+            text = scrape_website(snips.)
+        '''
+    #machine learning to replace facts:
+
+    chatgpt_text = response_raw
+    verified_fact_text = text
+    replaced_text = facts.correct_facts(chatgpt_text, verified_fact_text)
+    
+    fix_dict = [{"q": "replaced text", "snips": replaced_text}]
+
+
 
     #identify sources  
     # 
@@ -56,6 +114,8 @@ def main():
 
 #arr = [ obj1, obj2]
  # obj = {"q": question, "snips": {"src": url, "text": text, "other meta info mb similarity" : }}}] 
+
+    #set "arr" to arr to see text results from google. Set "arr" to fix_dict to see spacy replaced text (currently doesn't work)
     return jsonify({"gpt_response": response , "arr" : arr})
 
 
