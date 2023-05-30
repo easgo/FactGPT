@@ -2,19 +2,36 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
   const chatContainer = document.querySelector("#chat_container");
 
+  function printTextAnimated(text) {
+    const resultElement = document.getElementById('result');
+  
+    let i = 0;
+    const intervalId = setInterval(() => {
+      if (i < text.length) {
+        resultElement.innerHTML += text.charAt(i);
+        i++;
+      } else {
+        clearInterval(intervalId);
+      }
+    }, 20);
+  }
+  
 
-  function typeText(element, text) {
-    let index = 0
 
-    let interval = setInterval(() => {
-        if (index < text.length) {
-            element.innerHTML += text.charAt(index)
-            index++
-        } else {
-            clearInterval(interval)
-        }
-    }, 20)
-}
+//   function typeText(element, text) {
+//     let index = 0
+
+//     let interval = setInterval(() => {
+//         if (index < text.length) {
+//             element.innerHTML += text.charAt(index)
+//             index++
+//         } else {
+//             clearInterval(interval)
+//         }
+//     }, 20)
+// }
+
+
 
 
   function generateUniqueID() {
@@ -36,6 +53,32 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         </div>
     `;
+  }
+
+  function createButtonsFromText(sentences) {
+    
+    // Get the container element where the buttons will be added
+    var container = document.createElement('div');
+    
+    // Create a button for each sentence
+    for (var i = 0; i < sentences.length; i++) {
+      // Create a new button element
+      var button = document.createElement('button');
+    
+      // Set the button text as the sentence
+      button.textContent = sentences[i];
+    
+      // Add a click event listener to each button
+      button.addEventListener('click', function() {
+        // This function will be executed when the button is clicked
+        // You can add your desired functionality here
+        console.log('Button clicked:', this.textContent);
+      });
+    
+      // Add the button to the container
+      container.appendChild(button);
+    }
+    return container.innerHTML; 
   }
 
   const handleSubmit = async (e) => {
@@ -81,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         
         // typeText(messageDiv, data.gpt_response + "\n")
-        messageDiv.innerHTML = data.gpt_response //we would obviously need to change this to the whole sentences as objects thing, just doing this temporarily
+        messageDiv.innerHTML = createButtonsFromText(data.gpt_response) //we would obviously need to change this to the whole sentences as objects thing, just doing this temporarily
         // const secId = generateUniqueID();
         // chatContainer.innerHTML += chatStripe(true, " ", secId);
         // evDiv = document.getElementById(secId);
@@ -115,34 +158,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-function createButtonsFromText(text) {
-  // Split the text into an array of sentences
-  var sentences = text.trim().split(/[.!?]/);
-  
-  // Create a container element to hold the buttons
-  var container = document.createElement('div');
-  
-  // Create a button for each sentence
-  sentences.forEach(function(sentence) {
-    // Create a new button element
-    var button = document.createElement('button');
-    
-    // Set the button text to the sentence
-    button.textContent = sentence.trim();
-    
-    // Add a click event listener to the button
-    button.addEventListener('click', function() {
-      // Handle button click event here
-      console.log('Button clicked:', sentence.trim());
-    });
-    
-    // Append the button to the container
-    container.appendChild(button);
-  });
-  
-  // Append the container to the document body
-  document.body.appendChild(container);
-}
+
+
+
 
 
 
@@ -150,11 +168,11 @@ function createButtonsFromText(text) {
 async function sendMain() {
     const inputValue = document.getElementById("input").value;
 ``
-    if (inputValue) {
-      // hide the header
-      const headerElement = document.getElementById("header");
-      headerElement.style.display = "none !important"; 
-    }
+    // if (inputValue) {
+    //   // hide the header
+    //   const headerElement = document.getElementById("header");
+    //   headerElement.style.display = "none !important"; 
+    // }
     // Make a POST request to our Python function
     fetch('/main', {
       method: 'POST',
@@ -189,19 +207,6 @@ async function sendMain() {
 
   
 
-    // function printTextAnimated(text) {
-  //   const resultElement = document.getElementById('result');
-  
-  //   let i = 0;
-  //   const intervalId = setInterval(() => {
-  //     if (i < text.length) {
-  //       resultElement.innerHTML += text.charAt(i);
-  //       i++;
-  //     } else {
-  //       clearInterval(intervalId);
-  //     }
-  //   }, 20);
-  // }
 
 
      // .then(response => response.json())
