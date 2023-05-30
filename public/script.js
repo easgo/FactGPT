@@ -38,6 +38,30 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
+  function clickCorrect() {
+    container = document.createElement('div'); 
+    sentence = this.textContent;
+    sentence = sentence.replace(/ /g, '+');
+    fetch('/correct-facts?sentence=' + sentence, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Server response:', data.corrected_text);
+      var correctedText = data.corrected_text; 
+      container.innerHTML += correctedText; 
+
+      var parentDiv = this.parentElement; 
+      parentDiv.appendChild(container)
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+
   function createButtonsFromText(sentences) {
     
     var container = document.createElement('div');
@@ -45,44 +69,29 @@ document.addEventListener("DOMContentLoaded", () => {
     // Create a button for each sentence
     for (var i = 0; i < sentences.length; i++) {
       var button = document.createElement('button');
-    
-      // Set the button text as the sentence
+       // Set the button text as the sentence
       button.textContent = sentences[i];
-
-      button.addEventListener('click', function() {
-        var sentence = this.textContent;
-      
-        fetch('/correct-facts', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            sentence: sentence
-          })
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Server response:', data.corrected_text);
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-      });
-      
-
+      button.id = "textButton" + i;
       
       // button.addEventListener('click', function() {
       //   console.log('Button clicked:', this.textContent);
-      // });
-    
+      // });           
       // Add the button to the container
       container.appendChild(button);
     }
     return container.innerHTML; 
   }
 
-  
+
+
+  function addEventListenersToButtons() {
+    // Get all the buttons that have an id that starts with "textButton"
+    var buttons = document.querySelectorAll('button[id^="textButton"]');
+    // Loop through the buttons and add a click event listener to each
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener('click', clickCorrect);
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -100,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const messageDiv = document.getElementById(uniqueId);
     //Second evidence chatstripe 
-
+    
 
     //const inputValue = document.getElementById("input").value;
 
@@ -127,7 +136,12 @@ document.addEventListener("DOMContentLoaded", () => {
         
         
         // typeText(messageDiv, data.gpt_response + "\n")
-        messageDiv.innerHTML = createButtonsFromText(data.gpt_response) //we would obviously need to change this to the whole sentences as objects thing, just doing this temporarily
+        //create the buttons here and then add event listeners to them
+
+        messageDiv.innerHTML = createButtonsFromText(data.gpt_response)
+        addEventListenersToButtons()
+
+
         // const secId = generateUniqueID();
         // chatContainer.innerHTML += chatStripe(true, " ", secId);
         // evDiv = document.getElementById(secId);
@@ -143,10 +157,3 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
 });
-
-
-
-
-
-
-

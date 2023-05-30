@@ -7,6 +7,7 @@ import wikimedia
 import sentence_match
 import sentences
 import facts
+from facts import correct_facts
 from wikimedia import Wikipedia
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
@@ -129,10 +130,13 @@ def get_single_replaced_sentence(sentence):
     replaced_sent = sentence_match.evaluate_sentence_evidence(sentence, wiki_text)
     return replaced_sent
 
-@app.route('/correct-facts', methods=['POST'])
+@app.route('/correct-facts', methods=['GET'])
 def correct_facts_handler():
-    data = request.json
-    sentence = data['sentence']
+    args = request.args
+
+    sentence = args['sentence']
+
+    sentence.replace("+", " ")
 
     similarity_threshold = 70  
     corrected_text = correct_facts(sentence, get_single_replaced_sentence(sentence), similarity_threshold)
