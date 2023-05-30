@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
   const chatContainer = document.querySelector("#chat_container");
 
-
+  console.log('hi'); 
 
   function typeText(element, text) {
     let index = 0
