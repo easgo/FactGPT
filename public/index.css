@@ -7,6 +7,24 @@
     align-items: center;
     justify-content: space-between;
   }
+
+  .message button {
+    color: #dcdcdc;
+    font-size: 17px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    white-space: pre-wrap;
+    text-align: left; 
+  }
+  
+  .message button:hover {
+    background: #40414F;
+    color: #0000FF;
+  }
+
+  
   #chat_container {
     flex: 1;
     width: 100%;

@@ -129,6 +129,20 @@ def get_single_replaced_sentence(sentence):
     replaced_sent = sentence_match.evaluate_sentence_evidence(sentence, wiki_text)
     return replaced_sent
 
+@app.route('/correct-facts', methods=['POST'])
+def correct_facts_handler():
+    data = request.json
+    sentence = data['sentence']
+
+    similarity_threshold = 70  
+    corrected_text = correct_facts(sentence, get_single_replaced_sentence(sentence), similarity_threshold)
+
+    # Return the corrected text and any other data as a response
+    response_data = {
+        'corrected_text': corrected_text
+    }
+    return jsonify(response_data)
+
 if __name__ == '__main__':
     app.run()
 
