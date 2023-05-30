@@ -23,6 +23,9 @@
     background: #40414F;
     color: #0000FF;
   }
+  .colored-text {
+    color: #228B22; /* Change the color value as desired */
+  }
 
   
   #chat_container {

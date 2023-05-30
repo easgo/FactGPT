@@ -138,8 +138,7 @@ def correct_facts_handler():
 
     sentence.replace("+", " ")
 
-    similarity_threshold = 70  
-    corrected_text = correct_facts(sentence, get_single_replaced_sentence(sentence), similarity_threshold)
+    corrected_text = get_single_replaced_sentence(sentence)
 
     # Return the corrected text and any other data as a response
     response_data = {

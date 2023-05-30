@@ -52,7 +52,10 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(data => {
       console.log('Server response:', data.corrected_text);
       var correctedText = data.corrected_text; 
-      container.innerHTML += correctedText; 
+
+      var coloredText = '<span class="colored-text">' + correctedText + '</span>';
+      container.innerHTML += coloredText;
+      //container.innerHTML += correctedText; 
 
       var parentDiv = this.parentElement; 
       parentDiv.appendChild(container)
