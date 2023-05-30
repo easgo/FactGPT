@@ -4,7 +4,7 @@ import spacy
 # Load the large English NLP model
 nlp = spacy.load('en_core_web_lg')
 
-def correct_facts(text1, text2, similarity_threshold=80):
+def correct_facts(text1, text2, similarity_threshold=70):
     # Parse the documents with spaCy
     doc1 = nlp(text1)
     doc2 = nlp(text2)

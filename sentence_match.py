@@ -1,28 +1,27 @@
 import chatgpt
 
 def evaluate_sentence_evidence(gpt_sentence, evidence):
-    compare_prompt = f'''
-    Using the GPT-Sentence and Evidence below, if the GPT-Sentence disagrees with the Evidence, return using the
-    format below. Also, rephrase the disagreeing sentence/sentences from the Evidence into a single
-    sentence called Correct-Sentence that has the same structure as our GPT-Sentence. For example, if our GPT-Sentence was
-    "He went on to pursue his Ph.D. in Mathematics, which he obtained in 1997 from the University of Chicago"
-    but the corresponding sentence from the Evidence was "He received his Ph.D. in 2000 from the University of California,
-    Berkeley under the joint supervision of Andrew Casson and William Thurston; his dissertation concerned foliations of three-dimensional manifolds,"
-    Correct-Sentence should be
-    "He received his Ph.D. in 2000 from the University of California, Berkeley," which has the
-    same words as the GPT-Sentence and only changes the part that disagrees (University of Chicago to University of California). It does not mention Andrew Casson, WIlliam Thurston, or manifolds because they are unrelated to our GPT-Sentence.
+    compare_prompt = f'''Using the GPT-Sentence and Evidence below, if the GPT-Sentence says a fact that is said differently in the Evidence (such as when someone was born), return using the
+format below. Also, rephrase the correct fact from the Evidence into a single
+sentence called Correct-Sentence that has the same structure as our GPT-Sentence. For example, if our GPT-Sentence was
+"He went on to pursue his Ph.D. in Mathematics, which he obtained in 1997 from the University of Chicago"
+but there is a part of the Evidence that says "He received his Ph.D. in 2000 from the University of California,
+Berkeley under the joint supervision of Andrew Casson and William Thurston; his dissertation concerned foliations of three-dimensional manifolds,"
+Correct-Sentence should be
+"He received his Ph.D. in 2000 from the University of California, Berkeley," which has the
+same words as the GPT-Sentence and only changes the part that disagrees (University of Chicago to University of California). It does not mention Andrew Casson, WIlliam Thurston, or manifolds because they are unrelated to our GPT-Sentence.
 
-    Desired format:
-    Likely Wrong, Evidence: <Correct-Sentence>
+Desired format:
+Likely Wrong, Evidence: <Correct-Sentence>
 
-    If the evidence contains a statement or statements
-    that agree with the GPT-Sentence, return using the format below.
+If the evidence contains a statement or statements
+that agree with the GPT-Sentence, return using the format below.
 
-    Desired format:
-    Likely Correct
+Desired format:
+Likely Correct
 
-    If the GPT-Sentence and the Evidence are unrelated,
-    just return the words "Unclear".
+If the GPT-Sentence and the Evidence are unrelated,
+just return the words "Unclear".
 
     GPT-Sentence: ###
     {gpt_sentence}

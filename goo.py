@@ -36,9 +36,11 @@ def scrape_website(url):
     text_content = soup.get_text()
 
     # Remove non-alphanumeric characters except spaces and dashes
-    text_content = re.sub(r'[^a-zA-Z0-9\s\-.:]', '', text_content)
+    text_content = re.sub(r'[^a-zA-Z0-9\s\-:;.-]+', ' ', text_content)
+    text_content = re.sub(r'\.', '. ', text_content)
 
     # Remove extra spaces and newlines
+    text_content = re.sub(r'(\w+)(\s+)(?=edit\b)', r'\1.\2', text_content)
     text_content = re.sub(r'\s+', ' ', text_content).strip()
     return text_content
 

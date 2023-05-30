@@ -4,6 +4,8 @@ import chatgpt
 import openai
 import time
 import wikimedia
+import sentence_match
+import sentences
 import facts
 from wikimedia import Wikipedia
 from flask import Flask, request, jsonify, render_template
@@ -17,6 +19,7 @@ def index():
     return render_template('index.html')
 #in command line, take in initial prompt
 
+wiki_text = ""
 
 def getPrompt():
     parser = argparse.ArgumentParser()
@@ -63,9 +66,9 @@ def main():
         link = results['link']
     text = scrape_website(link)
 
-    print("###########" +user_input +  "##########")
-    print(link)
-    print(text)
+    #print("###########" +user_input+  "##########")
+    #print(link)
+    #print(text)
     #text = wikimedia.clean_string(text)
     #cut off useless stuff:
     search_phrase = "From Wikipedia the free encyclopedia"
@@ -73,7 +76,7 @@ def main():
     if index != -1:
         text = text[index + len(search_phrase):].strip()
     
-    end_p = "Selected worksedit"
+    end_p = "Selected works. edit"
     ind_two = text.find(end_p)
     if ind_two != -1:
         text = text[0:ind_two].strip()
@@ -101,10 +104,12 @@ def main():
     #machine learning to replace facts:
 
     chatgpt_text = response_raw
-    verified_fact_text = text
-    replaced_text = facts.correct_facts(chatgpt_text, verified_fact_text)
+    split_sentences = sentences.split_into_sentences(chatgpt_text)
+    wiki_text = text
+    print(split_sentences)
+    #replaced_text = facts.correct_facts(chatgpt_text, verified_fact_text)
     
-    fix_dict = [{"q": "replaced text", "snips": replaced_text}]
+    #fix_dict = [{"q": "replaced text", "snips": replaced_text}]
 
 
 
@@ -116,8 +121,13 @@ def main():
  # obj = {"q": question, "snips": {"src": url, "text": text, "other meta info mb similarity" : }}}] 
 
     #set "arr" to arr to see text results from google. Set "arr" to fix_dict to see spacy replaced text (currently doesn't work)
-    return jsonify({"gpt_response": response , "arr" : arr})
+    return jsonify({"gpt_response": split_sentences})
 
+
+def get_single_replaced_sentence(sentence):
+    wik_tex = wiki_text
+    replaced_sent = sentence_match.evaluate_sentence_evidence(sentence, wiki_text)
+    return replaced_sent
 
 if __name__ == '__main__':
     app.run()

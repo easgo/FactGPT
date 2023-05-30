@@ -72,13 +72,17 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(data => {
         console.log(data)
         messageDiv.innerHTML = " "
-        evidence = ""
-        for (item in data.arr) {
-          evidence += "########" +  data.arr[item].q + "########\n"
-          evidence += data.arr[item].snips + "\n\n\n"
-        }
+        
+
+
+        /* **** READ ME****  
+        
+        data.gpt_response is an array with each entry being each individual string.. Not sure how to display those separately but you can access them here at least */
+        /*Also there's a method in app.py now called "get_single_replaced_sentence(string)" which takes in a string and returns the replaced string. We just need to have a call to it when text is clicked/something like that*/
+        
+        
         // typeText(messageDiv, data.gpt_response + "\n")
-        messageDiv.innerHTML = data.gpt_response + evidence
+        messageDiv.innerHTML = data.gpt_response //we would obviously need to change this to the whole sentences as objects thing, just doing this temporarily
         // const secId = generateUniqueID();
         // chatContainer.innerHTML += chatStripe(true, " ", secId);
         // evDiv = document.getElementById(secId);
