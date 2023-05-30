@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
   const chatContainer = document.querySelector("#chat_container");
 
-  console.log('hi'); 
 
   function typeText(element, text) {
     let index = 0
@@ -116,6 +115,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+function createButtonsFromText(text) {
+  // Split the text into an array of sentences
+  var sentences = text.trim().split(/[.!?]/);
+  
+  // Create a container element to hold the buttons
+  var container = document.createElement('div');
+  
+  // Create a button for each sentence
+  sentences.forEach(function(sentence) {
+    // Create a new button element
+    var button = document.createElement('button');
+    
+    // Set the button text to the sentence
+    button.textContent = sentence.trim();
+    
+    // Add a click event listener to the button
+    button.addEventListener('click', function() {
+      // Handle button click event here
+      console.log('Button clicked:', sentence.trim());
+    });
+    
+    // Append the button to the container
+    container.appendChild(button);
+  });
+  
+  // Append the container to the document body
+  document.body.appendChild(container);
+}
+
+
 
 // Get the input value
 async function sendMain() {
@@ -148,7 +177,7 @@ async function sendMain() {
       // chatoutput.innerHTML = printTextAnimated(gpt_response);
       
       const animatedText = printTextAnimated(`The fact checked response to ${inputValue} is ${data.result}.`).then(animatedText => {
-        resultElement.innerHTML = data.gpt_response;
+        resultElement.innerHTML = createButtonsFromText(data.gpt_response);
       });
       //resultElement.innerHTML = printTextAnimated("`The fact checked response to ${inputValue} is ${data.result}.`");
     })
