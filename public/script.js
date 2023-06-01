@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function clickCorrect() {
+    
     container = document.createElement('div'); 
     sentence = this.textContent;
     sentence = sentence.replace(/ /g, '+');
@@ -51,25 +52,28 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(response => response.json())
     .then(data => {
       console.log('Server response:', data.corrected_text);
+
+      var factCheckUniqueId = generateUniqueID(); 
       var correctedText = data.corrected_text; 
       var textColor = correctedText.includes("Correct") ? "green" : "red";
-      var coloredText = `<span class="colored-text" style="color: ${textColor}; padding-top: "10px"; padding-bottom: "10px">${correctedText}</span>`;
+      var coloredText = `<span class="colored-text" style="color: ${textColor}">${correctedText}</span>`;
+      container.innerHTML += coloredText; 
     
-      container.innerHTML += coloredText;
+      //container.innerHTML += coloredText;
       var parentDiv = this.parentElement; 
       parentDiv.appendChild(container); 
 
-      // var factCheckUniqueId = generateUniqueID(); 
-      // chatContainer.innerHTML = " "; 
-      // chatContainer.innerHTML += factCheckStripe(data.corrected_text, factCheckUniqueId); 
- 
+     
       
     })
     .catch(error => {
       console.error('Error:', error);
     });
   }
-  
+   // var factCheckUniqueId = generateUniqueID(); 
+      // chatContainer.innerHTML = " "; 
+      // chatContainer.innerHTML += factCheckStripe(data.corrected_text, factCheckUniqueId); 
+ 
   
 
   function createButtonsFromText(sentences) {
