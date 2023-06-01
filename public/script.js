@@ -1,20 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
   const chatContainer = document.querySelector("#chat_container");
-
-  // function printTextAnimated(text) {
-  //   const resultElement = document.getElementById('result');
-  
-  //   let i = 0;
-  //   const intervalId = setInterval(() => {
-  //     if (i < text.length) {
-  //       resultElement.innerHTML += text.charAt(i);
-  //       i++;
-  //     } else {
-  //       clearInterval(intervalId);
-  //     }
-  //   }, 20);
-  // }
   
 
   function generateUniqueID() {
@@ -25,18 +11,35 @@ document.addEventListener("DOMContentLoaded", () => {
     return `id-${timestamp}-${hexadecimalstring}`;
   }
 
-  function chatStripe(isAi, value, uniqueId) {
+  function chatStripe(isUser, isAi, value, uniqueId) {
+    let wrapperClass = "wrapper"; 
+    if (isUser) wrapperClass += " user"; 
+    if (isAi) wrapperClass += " ai"; 
     return `
-        <div class="wrapper ${isAi && 'ai'}">
-            <div class="chat">
-                <div class="profile">
-                    <div class="profile-image"></div>
-                </div>
-                <div class="message" id="${uniqueId}">${value}</div>
-            </div>
+        <div class="${wrapperClass}">
+        <div class="chat">
+          <div class="profile">
+            <div class="profile-image"></div>
+          </div>
+          <div class="message" id="${uniqueId}">${value}</div>
         </div>
+      </div>
     `;
   }
+
+  function factCheckStripe(value, uniqueId) {
+    return `
+      <div class="wrapper fact-check">
+        <div class="chat">
+          <div class="profile">
+            <div class="profile-image"></div>
+          </div>
+          <div class="message" id="${uniqueId}">${value}</div>
+        </div>
+      </div>
+    `;
+  }
+
 
   function clickCorrect() {
     container = document.createElement('div'); 
@@ -100,19 +103,22 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const data = new FormData(form);
+    const userMessage = data.get('prompt'); 
     // User's chatstrip
-    chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
+    chatContainer.innerHTML += chatStripe(true, false, userMessage);
 
     form.reset();
     // Bot's chatstripe
-    const uniqueId = generateUniqueID();
-    chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
+    const aiUniqueId = generateUniqueID();
+    chatContainer.innerHTML += chatStripe(false, true, " ", aiUniqueId);
+
+    const factCheckUniqueId = generateUniqueID(); 
+    chatContainer.innerHTML += factCheckStripe("Fact checked response", factCheckUniqueId); 
 
     chatContainer.scrollTop = chatContainer.scrollHeight;
 
-    const messageDiv = document.getElementById(uniqueId);
-    //Second evidence chatstripe 
-    
+    const aimessageDiv = document.getElementById(aiUniqueId);
+    const factCheckMessageDiv = document.getElementById(factCheckUniqueId)
 
     //const inputValue = document.getElementById("input").value;
 
@@ -128,8 +134,12 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(response => response.json())
       .then(data => {
         console.log(data)
-        messageDiv.innerHTML = " "
+        aimessageDiv.innerHTML = " "
+        aimessageDiv.innerHTML = createButtonsFromText(data.gpt_response)
         
+        addEventListenersToButtons(); 
+        const factCheckResponse = "Fact-checked response"; 
+        factCheckMessageDiv.innerHTML = factCheckResponse; 
 
 
         /* **** READ ME****  
@@ -141,8 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // typeText(messageDiv, data.gpt_response + "\n")
         //create the buttons here and then add event listeners to them
 
-        messageDiv.innerHTML = createButtonsFromText(data.gpt_response)
-        addEventListenersToButtons()
+        
 
 
         // const secId = generateUniqueID();

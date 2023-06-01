@@ -1,38 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
   const chatContainer = document.querySelector("#chat_container");
-
-  function printTextAnimated(text) {
-    const resultElement = document.getElementById('result');
   
-    let i = 0;
-    const intervalId = setInterval(() => {
-      if (i < text.length) {
-        resultElement.innerHTML += text.charAt(i);
-        i++;
-      } else {
-        clearInterval(intervalId);
-      }
-    }, 20);
-  }
-  
-
-
-//   function typeText(element, text) {
-//     let index = 0
-
-//     let interval = setInterval(() => {
-//         if (index < text.length) {
-//             element.innerHTML += text.charAt(index)
-//             index++
-//         } else {
-//             clearInterval(interval)
-//         }
-//     }, 20)
-// }
-
-
-
 
   function generateUniqueID() {
     const timestamp = Date.now();
@@ -55,30 +24,62 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
+  function clickCorrect() {
+    container = document.createElement('div'); 
+    sentence = this.textContent;
+    sentence = sentence.replace(/ /g, '+');
+    fetch('/correct-facts?sentence=' + sentence, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Server response:', data.corrected_text);
+      var correctedText = data.corrected_text; 
+
+      var coloredText = '<span class="colored-text">' + correctedText + '</span>';
+      container.innerHTML += coloredText;
+      //container.innerHTML += correctedText; 
+
+      var parentDiv = this.parentElement; 
+      parentDiv.appendChild(container)
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+
   function createButtonsFromText(sentences) {
     
-    // Get the container element where the buttons will be added
     var container = document.createElement('div');
     
     // Create a button for each sentence
     for (var i = 0; i < sentences.length; i++) {
-      // Create a new button element
       var button = document.createElement('button');
-    
-      // Set the button text as the sentence
+       // Set the button text as the sentence
       button.textContent = sentences[i];
-    
-      // Add a click event listener to each button
-      button.addEventListener('click', function() {
-        // This function will be executed when the button is clicked
-        // You can add your desired functionality here
-        console.log('Button clicked:', this.textContent);
-      });
-    
+      button.id = "textButton" + i;
+      
+      // button.addEventListener('click', function() {
+      //   console.log('Button clicked:', this.textContent);
+      // });           
       // Add the button to the container
       container.appendChild(button);
     }
     return container.innerHTML; 
+  }
+
+
+
+  function addEventListenersToButtons() {
+    // Get all the buttons that have an id that starts with "textButton"
+    var buttons = document.querySelectorAll('button[id^="textButton"]');
+    // Loop through the buttons and add a click event listener to each
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener('click', clickCorrect);
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -97,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const messageDiv = document.getElementById(uniqueId);
     //Second evidence chatstripe 
-
+    
 
     //const inputValue = document.getElementById("input").value;
 
@@ -124,30 +125,18 @@ document.addEventListener("DOMContentLoaded", () => {
         
         
         // typeText(messageDiv, data.gpt_response + "\n")
-        messageDiv.innerHTML = printTextAnimated(createButtonsFromText(data.gpt_response)) //we would obviously need to change this to the whole sentences as objects thing, just doing this temporarily
+        //create the buttons here and then add event listeners to them
+
+        messageDiv.innerHTML = createButtonsFromText(data.gpt_response)
+        addEventListenersToButtons()
+
+
         // const secId = generateUniqueID();
         // chatContainer.innerHTML += chatStripe(true, " ", secId);
         // evDiv = document.getElementById(secId);
         // console.log(data.arr)
         // typeText(evDiv,JSON.stringify(data.arr));
       })
-
-    
-
-    // messageDiv.innerHTML = " "
-
-
-    //   if (response.ok) {
-    //     const data = await response.json();
-    //     const parsedData = data;  
-
-    //     typeText(messageDiv, parsedData)
-    // } else {
-    //     const err = await response.text()
-
-    //     messageDiv.innerHTML = "Something went wrong"
-    //     alert(err)
-    // }
   }
   form.addEventListener('submit', handleSubmit);
   form.addEventListener('keyup', (e) => {
@@ -157,68 +146,3 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
 });
-
-
-
-
-
-
-
-// Get the input value
-async function sendMain() {
-    const inputValue = document.getElementById("input").value;
-``
-    // if (inputValue) {
-    //   // hide the header
-    //   const headerElement = document.getElementById("header");
-    //   headerElement.style.display = "none !important"; 
-    // }
-    // Make a POST request to our Python function
-    fetch('/main', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      
-      body: JSON.stringify({input: inputValue})
-    })
-    .then(response => response.json())
-    .then(data => {
-      // Update the HTML with the result
-      console.log(data); 
-      // const dataElement = document.getElementById("chatoutput")
-      // dataElement.innerHTML = `The ChatGPT response to ${inputValue} is ${}`
-
-      const resultElement = document.getElementById("result");
-      console.log(data.result);
-      const gpt_response = data.gpt_response
-      // chatoutput.innerHTML = printTextAnimated(gpt_response);
-      
-      const animatedText = printTextAnimated(`The fact checked response to ${inputValue} is ${data.result}.`).then(animatedText => {
-        resultElement.innerHTML = createButtonsFromText(data.gpt_response);
-      });
-      //resultElement.innerHTML = printTextAnimated("`The fact checked response to ${inputValue} is ${data.result}.`");
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-  }
-
-
-  
-
-
-
-     // .then(response => response.json())
-    // .then(data => { 
-    //   // Update the HTML with the result
-    //   console.log(data); 
-    //   // const dataElement = document.getElementById("chatoutput")
-    //   // dataElement.innerHTML = `The ChatGPT response to ${inputValue} is ${}`
-
-    //  // const resultElement = document.getElementById("result");
-    //   console.log(data.result);
-      // const animatedText = printTextAnimated(`The fact checked response to ${data.result}.`).then(animatedText => {
-      //   resultElement.innerHTML = animatedText;
-      // })
-    
