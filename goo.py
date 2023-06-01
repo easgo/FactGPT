@@ -52,6 +52,19 @@ def get_snips(q):
         output.append(result['snippet'] + "\n\n" + "Source Link: " + result["link"])
     return output
 
+######### TEST CASES #######
+
+# Question: Who are notable alumni from Hopewell Valley Central High school in Pennington NJ? 
+
+# Correct answers: Val Ackerman, Steve Braun, Daniella Cotton, Gregory S. Glasson, Jim Himes, Cassidy Hutchinson, Mark Hsu Syers, John Tanguay, Colleen Williams
+
+# Question: Tell me about New York State Route 373 
+
+# Correct answer: New York State Route 373 is 3.20 miles long (5.15 km) 
+
+# Question: When was Jenny Han born
+
+# Correct Answer: September 3, 1980
 
 '''TEST CODE'''
 #TESTING

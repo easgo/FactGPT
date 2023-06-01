@@ -11,19 +11,16 @@ document.addEventListener("DOMContentLoaded", () => {
     return `id-${timestamp}-${hexadecimalstring}`;
   }
 
-  function chatStripe(isUser, isAi, value, uniqueId) {
-    let wrapperClass = "wrapper"; 
-    if (isUser) wrapperClass += " user"; 
-    if (isAi) wrapperClass += " ai"; 
+  function chatStripe(isAi, value, uniqueId) {
     return `
-        <div class="${wrapperClass}">
-        <div class="chat">
-          <div class="profile">
-            <div class="profile-image"></div>
-          </div>
-          <div class="message" id="${uniqueId}">${value}</div>
+        <div class="wrapper ${isAi && 'ai'}">
+            <div class="chat">
+                <div class="profile">
+                    <div class="profile-image"></div>
+                </div>
+                <div class="message" id="${uniqueId}">${value}</div>
+            </div>
         </div>
-      </div>
     `;
   }
 
@@ -33,13 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="chat">
           <div class="profile">
             <div class="profile-image"></div>
+            </div>
           </div>
           <div class="message" id="${uniqueId}">${value}</div>
         </div>
       </div>
     `;
   }
-
 
   function clickCorrect() {
     container = document.createElement('div'); 
@@ -55,18 +52,25 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(data => {
       console.log('Server response:', data.corrected_text);
       var correctedText = data.corrected_text; 
-
-      var coloredText = '<span class="colored-text">' + correctedText + '</span>';
+      var textColor = correctedText.includes("Correct") ? "green" : "red";
+      var coloredText = `<span class="colored-text" style="color: ${textColor}; padding-top: "10px"; padding-bottom: "10px">${correctedText}</span>`;
+    
       container.innerHTML += coloredText;
-      //container.innerHTML += correctedText; 
-
       var parentDiv = this.parentElement; 
-      parentDiv.appendChild(container)
+      parentDiv.appendChild(container); 
+
+      // var factCheckUniqueId = generateUniqueID(); 
+      // chatContainer.innerHTML = " "; 
+      // chatContainer.innerHTML += factCheckStripe(data.corrected_text, factCheckUniqueId); 
+ 
+      
     })
     .catch(error => {
       console.error('Error:', error);
     });
   }
+  
+  
 
   function createButtonsFromText(sentences) {
     
@@ -103,22 +107,19 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const data = new FormData(form);
-    const userMessage = data.get('prompt'); 
     // User's chatstrip
-    chatContainer.innerHTML += chatStripe(true, false, userMessage);
+    chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
 
     form.reset();
     // Bot's chatstripe
-    const aiUniqueId = generateUniqueID();
-    chatContainer.innerHTML += chatStripe(false, true, " ", aiUniqueId);
-
-    const factCheckUniqueId = generateUniqueID(); 
-    chatContainer.innerHTML += factCheckStripe("Fact checked response", factCheckUniqueId); 
+    const uniqueId = generateUniqueID();
+    chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
 
     chatContainer.scrollTop = chatContainer.scrollHeight;
 
-    const aimessageDiv = document.getElementById(aiUniqueId);
-    const factCheckMessageDiv = document.getElementById(factCheckUniqueId)
+    const messageDiv = document.getElementById(uniqueId);
+    //Second evidence chatstripe 
+    
 
     //const inputValue = document.getElementById("input").value;
 
@@ -134,24 +135,10 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(response => response.json())
       .then(data => {
         console.log(data)
-        aimessageDiv.innerHTML = " "
-        aimessageDiv.innerHTML = createButtonsFromText(data.gpt_response)
-        
-        addEventListenersToButtons(); 
-        const factCheckResponse = "Fact-checked response"; 
-        factCheckMessageDiv.innerHTML = factCheckResponse; 
+        messageDiv.innerHTML = " "
 
-
-        /* **** READ ME****  
-        
-        data.gpt_response is an array with each entry being each individual string.. Not sure how to display those separately but you can access them here at least */
-        /*Also there's a method in app.py now called "get_single_replaced_sentence(string)" which takes in a string and returns the replaced string. We just need to have a call to it when text is clicked/something like that*/
-        
-        
-        // typeText(messageDiv, data.gpt_response + "\n")
-        //create the buttons here and then add event listeners to them
-
-        
+        messageDiv.innerHTML = createButtonsFromText(data.gpt_response)
+        addEventListenersToButtons()
 
 
         // const secId = generateUniqueID();
