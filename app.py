@@ -19,19 +19,20 @@ def index():
 #in command line, take in initial prompt
 
 wiki_text = ""
+url = ""
 
-def getPrompt():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-o', '--output', help='output file')
-    args = parser.parse_args()
-    if args.output:
-        with open(args.output, 'w') as f:
-            user_input = input('Enter a prompt to chatgpt: ')
-            f.write(user_input)
-    else:
-        user_input = input('Enter a prompt for chatgpt: ')
-        print('You entered:', user_input)
-    return user_input
+# def getPrompt():
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument('-o', '--output', help='output file')
+#     args = parser.parse_args()
+#     if args.output:
+#         with open(args.output, 'w') as f:
+#             user_input = input('Enter a prompt to chatgpt: ')
+#             f.write(user_input)
+#     else:
+#         user_input = input('Enter a prompt for chatgpt: ')
+#         print('You entered:', user_input)
+#     return user_input
 
 
 @app.route('/main', methods=['POST'])
@@ -46,7 +47,6 @@ def main():
 
     output = ""
     arr = []
-    
     #SEARCH (user's question)  => top result
     res = google_search_wrapper(user_input, 1)
             #askchat = "which of these links seems like it would be the best link to look at when trying to answer this question: " + str(question) + " please only respond with the one link: "
@@ -101,6 +101,8 @@ def main():
     chatgpt_text = response_raw
     split_sentences = sentences.split_into_sentences(chatgpt_text)
     wiki_text = text
+    print(link)
+    url = str(link)
     print(split_sentences)
     #replaced_text = facts.correct_facts(chatgpt_text, verified_fact_text)
     
@@ -117,7 +119,6 @@ def main():
 
     #set "arr" to arr to see text results from google. Set "arr" to fix_dict to see spacy replaced text (currently doesn't work)
     return jsonify({"gpt_response": split_sentences})
-
 
 def get_single_replaced_sentence(sentence):
     wik_tex = wiki_text
@@ -136,7 +137,8 @@ def correct_facts_handler():
 
     # Return the corrected text and any other data as a response
     response_data = {
-        'corrected_text': corrected_text
+        'corrected_text': corrected_text,
+        "url": url
     }
     return jsonify(response_data)
 
