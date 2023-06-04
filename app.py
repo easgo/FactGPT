@@ -3,12 +3,10 @@ import argparse
 import chatgpt
 import openai
 import time
-import wikimedia
 import sentence_match
 import sentences
 import facts
 from facts import correct_facts
-from wikimedia import Wikipedia
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from goo import *
