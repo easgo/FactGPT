@@ -17,6 +17,7 @@ pp = pprint.PrettyPrinter(indent=2)
 def google_search(search_term, api_key, cse_id, **kwargs):
     #remove quotes and anything that would mess up the search query
     search_term = re.sub(r'[^a-zA-Z0-9\s\-:]', '', search_term)
+    #specify wikipedia only
     kwargs['siteSearch'] = 'wikipedia.org'
     service = build("customsearch", "v1", developerKey=api_key)
     res = service.cse().list(q=search_term, cx=cse_id, **kwargs).execute()

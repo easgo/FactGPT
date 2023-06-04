@@ -40,18 +40,16 @@ def getPrompt():
 def main():
     user_input = request.json['prompt']
 
-    #make call to chatgpt using chatgpt.py and get response
+    #GET CHATGPT RESPONSE
     response_raw = chatgpt.getGptText(user_input)
+    #printing
     response = "########ChatGPT Output########\n" + response_raw + "\n\n"
     print(response)
-    #queries = chatgpt.getGptText("reformat as a list of context independent searchable questions for verification of the validity of important facts stated. Keep the questions precise as possible to make it easier for google to pull up a result. Try not to give more than 2 questions. No nonidentificable pronouns. Here is the response: " + response)
-    #print(queries)
-    #queries = queries.split("\n")
-    #print(queries)
+
     output = ""
     arr = []
-    #for question in queries:
-    #    if len(question) > 1:
+    
+    #SEARCH (user's question)  => top result
     res = google_search_wrapper(user_input, 1)
             #askchat = "which of these links seems like it would be the best link to look at when trying to answer this question: " + str(question) + " please only respond with the one link: "
             #for results in res:
@@ -63,15 +61,13 @@ def main():
            # except openai.error.RateLimitError as e:
            #     time.sleep(60)
            #    finallink = chatgpt.getGptText(askchat) 
+    
     for results in res:
         link = results['link']
+
     text = scrape_website(link)
 
-    #print("###########" +user_input+  "##########")
-    #print(link)
-    #print(text)
-    #text = wikimedia.clean_string(text)
-    #cut off useless stuff:
+
     search_phrase = "From Wikipedia the free encyclopedia"
     index = text.find(search_phrase)
     if index != -1:

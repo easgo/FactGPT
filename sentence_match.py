@@ -34,6 +34,10 @@ just return the words "Unclear".
 
     return chatgpt.getGptText(compare_prompt)
 
+
+
+#TESTING
+
 test_prompt = '''Using the GPT-Sentence and Evidence below, if the GPT-Sentence says a fact that is said differently in the Evidence (such as when someone was born), return using the
 format below. Also, rephrase the correct fact from the Evidence into a single
 sentence called Correct-Sentence that has the same structure as our GPT-Sentence. For example, if our GPT-Sentence was
