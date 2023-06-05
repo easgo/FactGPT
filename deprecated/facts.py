@@ -1,6 +1,12 @@
 from fuzzywuzzy import fuzz
 import spacy
 
+#random imports for if we want to use this as a standalone scrip
+
+# import facts
+# from facts import correct_factss
+
+
 # Load the large English NLP model
 nlp = spacy.load('en_core_web_lg')
 

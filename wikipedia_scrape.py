@@ -34,23 +34,25 @@ def scrape_wikipedia(article_url):
 #HELPER
 def scrape_infobox(soup):
     # Find the infobox section based on its class or other attributes
-    infobox = soup.find('table', {'class': 'infobox'})
+    try: 
+        infobox = soup.find('table', {'class': 'infobox'})
 
-    # Extract the key-value pairs from the infobox
-    info_dict = {}
+        # Extract the key-value pairs from the infobox
+        info_dict = {}
+        rows = infobox.find_all('tr')
+        for row in rows:
+            header = row.find('th')
+            if header:
+                key = header.get_text(strip=True)
+                td = row.find('td')
+                if td:
+                    value = td.get_text(strip=True)
+                    info_dict[key] = value
 
-    rows = infobox.find_all('tr')
-    for row in rows:
-        header = row.find('th')
-        if header:
-            key = header.get_text(strip=True)
-            td = row.find('td')
-            if td:
-                value = td.get_text(strip=True)
-                info_dict[key] = value
-
-    # Return the infobox information
-    return info_dict
+        # Return the infobox information
+        return info_dict
+    except:
+        return {}
 #HELPER
 def identify_relevant_paragraphs(sentence, n, all_paragraphs):
     # global all_paragraphs
@@ -86,23 +88,27 @@ def identify_relevant_paragraphs(sentence, n, all_paragraphs):
 
 
 #called for each sentence
-def get_evidence(sentence, all_paragraphs, infobox_dict, n=2):
+def get_evidence(sentence, all_paragraphs, infobox_dict, n=5):
     relevant_paragraphs = identify_relevant_paragraphs(sentence, n, all_paragraphs)
     # Create a list to store all the content
-    content_list = []
+    content = []
 
     # Add the relevant paragraphs to the content list
-    content_list.extend(relevant_paragraphs)
+    content.extend(relevant_paragraphs)
+    text_content = "\n".join(content)
 
+    infos = ["#infobox#"]
     # Add the infobox key-value pairs to the content list
     for key, value in infobox_dict.items():
-        content_list.append(f"{key}: {value}")
-
+        infos.append(f"{key}: {value}")
+    infos.append("#content#")
     # Combine all the content into a single string
-    combined_content = "\n".join(content_list)
+    infobox = "\n".join(infos)
 
+    combined =  infobox + text_content
+    print(combined)
     # Return the combined content string
-    return combined_content
+    return combined
 
 
 '''

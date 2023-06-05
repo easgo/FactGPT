@@ -59,8 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
       var url = data.url;
       console.log(String(url));
       var buttonText = this.textContent;
-      var textColor = correctedText.includes("Correct") ? "green" : "red";
-      var coloredText = `<span class="colored-text" style="color: ${textColor}">${correctedText}</span>`;
+      var textColor = correctedText.includes("Correct,") ? "green" : "red";
+      var coloredText = `<span class="colored-text" style="color: ${textColor}">${correctedText} </span> <a href=${url}  target=”_blank” style="color:#36AE7C;">Evidence URL</a> `;
+      //
       container.innerHTML += `${buttonText}: ${coloredText}`; 
     
       //container.innerHTML += coloredText;
