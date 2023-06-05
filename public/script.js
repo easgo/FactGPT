@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function clickCorrect() {
     
     container = document.createElement('div'); 
+    container.classList.add('container-class'); 
     sentence = this.textContent;
     sentence = sentence.replace(/ /g, '+');
     fetch('/correct-facts?sentence=' + sentence, {
@@ -55,11 +56,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       var factCheckUniqueId = generateUniqueID(); 
       var correctedText = data.corrected_text; 
-      let url = data.url;
-      console.log("url" + String(url));
+      var url = data.url;
+      console.log(String(url));
+      var buttonText = this.textContent;
       var textColor = correctedText.includes("Correct") ? "green" : "red";
       var coloredText = `<span class="colored-text" style="color: ${textColor}">${correctedText}</span>`;
-      container.innerHTML += coloredText; 
+      container.innerHTML += `${buttonText}: ${coloredText}`; 
     
       //container.innerHTML += coloredText;
       var parentDiv = this.parentElement; 

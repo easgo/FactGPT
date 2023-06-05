@@ -18,6 +18,10 @@
     white-space: pre-wrap;
     text-align: left; 
   }
+
+  .container-class {
+    padding-top: 20px;
+  }
   
   .message button:hover {
     background: #40414F;
