@@ -8,6 +8,7 @@ load_dotenv()
 
 # Given a prompt, getGptText returns ChatGPT response
 def getGptText(prompt):
+    ### NOTE: Please supply your own OPENAI_API_KEY in .env
     openai.api_key = os.getenv("OPENAI_API_KEY")
     
     response = openai.ChatCompletion.create(

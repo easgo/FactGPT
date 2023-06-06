@@ -61,10 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
       var buttonText = this.textContent;
       var textColor = correctedText.includes("Correct,") ? "green" : "red";
       var coloredText = `<span class="colored-text" style="color: ${textColor}">${correctedText} </span> <a href=${url}  target=”_blank” style="color:#36AE7C;">Evidence URL</a> `;
-      //
       container.innerHTML += `${buttonText}: ${coloredText}`; 
     
-      //container.innerHTML += coloredText;
       var parentDiv = this.parentElement; 
       parentDiv.appendChild(container); 
 
@@ -75,11 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error('Error:', error);
     });
   }
-   // var factCheckUniqueId = generateUniqueID(); 
-      // chatContainer.innerHTML = " "; 
-      // chatContainer.innerHTML += factCheckStripe(data.corrected_text, factCheckUniqueId); 
- 
-  
 
   function createButtonsFromText(sentences) {
     
@@ -91,10 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
        // Set the button text as the sentence
       button.textContent = sentences[i];
       button.id = "textButton" + i;
-      
-      // button.addEventListener('click', function() {
-      //   console.log('Button clicked:', this.textContent);
-      // });           
+             
       // Add the button to the container
       container.appendChild(button);
     }
@@ -128,9 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const messageDiv = document.getElementById(uniqueId);
     //Second evidence chatstripe 
-    
-
-    //const inputValue = document.getElementById("input").value;
 
     await fetch('/main', {
       method: 'POST',
@@ -148,13 +135,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         messageDiv.innerHTML = createButtonsFromText(data.gpt_response)
         addEventListenersToButtons()
-
-
-        // const secId = generateUniqueID();
-        // chatContainer.innerHTML += chatStripe(true, " ", secId);
-        // evDiv = document.getElementById(secId);
-        // console.log(data.arr)
-        // typeText(evDiv,JSON.stringify(data.arr));
       })
   }
   form.addEventListener('submit', handleSubmit);

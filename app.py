@@ -19,7 +19,7 @@ CORS(app)
 @app.route('/')
 def index():
     return render_template('index.html')
-#in command line, take in initial prompt
+# in command line, take in initial prompt
 
 wiki_text = ""
 url = ""
@@ -35,20 +35,20 @@ def main():
     global info
     user_input = request.json['prompt']
 
-    #GET CHATGPT RESPONSE
+    # GET CHATGPT RESPONSE
     response_raw = chatgpt.getGptText(user_input)
-    #printing
+    # printing
     response = "########ChatGPT Output########\n" + response_raw + "\n\n"
     print(response)
 
     output = ""
     arr = []
-    #SEARCH (user's question)  => top result
+    # SEARCH (user's question)  => top result
     res = google_search_wrapper(user_input, 1)
     
     for results in res:
         link = results['link']
-    #scraping and updating url global
+    # scraping and updating url global
     text = scrape_website(link)
     para, info = scrape_wikipedia(link)
     url = str(link)

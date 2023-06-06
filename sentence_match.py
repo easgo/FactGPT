@@ -1,5 +1,6 @@
 import chatgpt
 
+# Function to evaluate sentence accuracy based on evidence
 def evaluate_sentence_evidence(gpt_sentence, evidence):
     compare_prompt = f'''Using the selected sentence and Evidence below, if the selected sentence says a fact that is said differently in the Evidence (such as when someone was born), return using the
 format below. Also, produce a new sentence called "Correct-Sentence," which is the correct fact from the Evidence that is different from the selected sentence.

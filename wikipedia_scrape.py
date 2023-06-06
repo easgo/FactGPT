@@ -8,7 +8,7 @@ all_paragraphs = []
 infobox_info = {}
 
 
-#grab the raw wiki stuff
+# grab the raw wiki stuff
 def scrape_wikipedia(article_url):
     all_paragraphs = []
     infobox_info = {}
@@ -109,24 +109,3 @@ def get_evidence(sentence, all_paragraphs, infobox_dict, n=5):
     print(combined)
     # Return the combined content string
     return combined
-
-
-'''
-# Example usage
-article_url = "https://en.wikipedia.org/wiki/Jenny_Han"
-
-# Scrape the Wikipedia page and store the paragraphs and infobox information
-para, info = scrape_wikipedia(article_url)
-
-# Prompt the user for a sentence
-sentence = "Jenny Han was born on November 7th, 1875"
-
-# Prompt the user for the number of relevant paragraphs to identify
-n = 2
-
-# Identify the relevant paragraphs
-# relevant_paragraphs = identify_relevant_paragraphs(sentence, para)
-
-# print(combine_paragraphs_infobox(relevant_paragraphs, infobox_info))
-print(get_evidence(sentence,para,info))
-'''
